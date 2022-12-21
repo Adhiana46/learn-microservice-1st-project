@@ -28,6 +28,8 @@ app.post("/posts", async (req, res) => {
             id,
             title,
         },
+    }).catch(err => {
+        console.log("postEvent", "http://localhost:4005/events", err.code);
     });
 
     res.status(201).send(posts[id]);

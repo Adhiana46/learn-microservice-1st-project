@@ -8,11 +8,9 @@ app.use(bodyParser.json());
 function sendEvent(url, event) {
     console.log("sendEvent", url, event);
 
-    try {
-        axios.post(url, event);
-    } catch (err) {
-        console.log("sendEvent.Error", err);
-    }
+    axios.post(url, event).catch(err => {
+        console.log("sendEvent.Error", url, err.code);
+    });
 }
 
 app.post("/events", (req, res) => {
@@ -21,6 +19,7 @@ app.post("/events", (req, res) => {
     sendEvent("http://localhost:4000/events", event)
     sendEvent("http://localhost:4001/events", event);
     sendEvent("http://localhost:4002/events", event);
+    sendEvent("http://localhost:4003/events", event);
 
     res.send({ status: "OK" });
 });
