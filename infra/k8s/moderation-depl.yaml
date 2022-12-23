@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts
+  name: moderation
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: posts
+      app: moderation
   template:
     metadata:
       labels:
-        app: posts
+        app: moderation
     spec:
       containers:
-      - name: posts
-        image: adhiana46/ms-node-post-service
+      - name: moderation
+        image: adhiana46/ms-node-moderation-service
         resources:
           limits:
             memory: "128Mi"
