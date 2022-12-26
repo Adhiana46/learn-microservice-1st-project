@@ -1,4 +1,4 @@
-version := "0.0.5"
+version := "latest"
 
 build-images:
 	echo "Building images version: $(version)"

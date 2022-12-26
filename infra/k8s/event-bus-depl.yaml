@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: event-bus
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: event-bus
@@ -15,6 +15,7 @@ spec:
       containers:
       - name: event-bus
         image: adhiana46/ms-node-event-bus
+        imagePullPolicy: IfNotPresent
         resources:
           limits:
             memory: "128Mi"

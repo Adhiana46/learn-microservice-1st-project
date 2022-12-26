@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: client-react
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: client-react
@@ -15,9 +15,10 @@ spec:
       containers:
       - name: client-react
         image: adhiana46/ms-node-client-react
+        imagePullPolicy: IfNotPresent
         resources:
           limits:
-            memory: "128Mi"
+            memory: "256Mi"
             cpu: "500m"
         # ports:
         # - containerPort: <Port>
