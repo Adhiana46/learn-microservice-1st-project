@@ -22,3 +22,17 @@ spec:
             cpu: "500m"
         # ports:
         # - containerPort: <Port>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: query
+  ports:
+  - name: query
+    protocol: TCP
+    port: 4002
+    targetPort: 4002

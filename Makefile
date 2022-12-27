@@ -30,4 +30,10 @@ k8s-rollout-restart:
 	kubectl rollout restart deployment/posts
 	kubectl rollout restart deployment/query
 minikube-clean:
-	minikube image rm docker.io/adhiana46/ms-node-client-react docker.io/adhiana46/ms-node-comment-service docker.io/adhiana46/ms-node-event-bus docker.io/adhiana46/ms-node-moderation-service docker.io/adhiana46/ms-node-post-service docker.io/adhiana46/ms-node-query-service
+	minikube image rm \
+	docker.io/adhiana46/ms-node-client-react \
+	docker.io/adhiana46/ms-node-comment-service \
+	docker.io/adhiana46/ms-node-event-bus \
+	docker.io/adhiana46/ms-node-moderation-service \
+	docker.io/adhiana46/ms-node-post-service \
+	docker.io/adhiana46/ms-node-query-service

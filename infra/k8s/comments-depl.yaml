@@ -22,3 +22,17 @@ spec:
             cpu: "500m"
         # ports:
         # - containerPort: <Port>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: comments
+  ports:
+  - name: comments
+    protocol: TCP
+    port: 4001
+    targetPort: 4001

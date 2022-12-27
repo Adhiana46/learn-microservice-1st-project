@@ -24,9 +24,9 @@ app.post("/events", (req, res) => {
   console.log("Received Event: ", event.type);
 
   sendEvent("http://posts-clusterip-srv:4000/events", event);
-  // sendEvent("http://localhost:4001/events", event);
-  // sendEvent("http://localhost:4002/events", event);
-  // sendEvent("http://localhost:4003/events", event);
+  sendEvent("http://comments-clusterip-srv:4001/events", event);
+  sendEvent("http://query-clusterip-srv:4002/events", event);
+  sendEvent("http://moderation-clusterip-srv:4003/events", event);
 
   res.send({ status: "OK" });
 });

@@ -10,56 +10,56 @@ app.use(cors());
 const posts = {};
 
 const handleEvent = (type, data) => {
-    if (type === 'PostCreated') {
-        const { id, title } = data;
+  if (type === "PostCreated") {
+    const { id, title } = data;
 
-        posts[id] = { id, title, comments: [] };
+    posts[id] = { id, title, comments: [] };
+  }
+
+  if (type === "CommentCreated") {
+    const { id, content, postId, status } = data;
+
+    const post = posts[postId];
+    if (post) {
+      post.comments.push({ id, content, status });
     }
+  }
 
-    if (type === 'CommentCreated') {
-        const { id, content, postId, status } = data;
+  if (type === "CommentUpdated") {
+    const { id, content, postId, status } = data;
 
-        const post = posts[postId];
-        if (post) {
-            post.comments.push({ id, content, status });
-        }
-    }
+    const post = posts[postId];
+    const comment = post.comments.find((comment) => {
+      return comment.id === id;
+    });
 
-    if (type === 'CommentUpdated') {
-        const { id, content, postId, status } = data;
-
-        const post = posts[postId];
-        const comment = post.comments.find(comment => {
-            return comment.id === id;
-        });
-
-        comment.status = status
-        comment.content = content;
-    }
-}
+    comment.status = status;
+    comment.content = content;
+  }
+};
 
 app.get("/posts", (req, res) => {
-    res.send(posts);
-})
+  res.send(posts);
+});
 
 app.post("/events", (req, res) => {
-    console.log("Received Event", req.body.type);
+  console.log("Received Event", req.body.type);
 
-    const { type, data } = req.body;
+  const { type, data } = req.body;
 
-    handleEvent(type, data);
+  handleEvent(type, data);
 
-    res.send({});
-})
+  res.send({});
+});
 
 app.listen(4002, async () => {
-    console.log("Listening on 4002");
+  console.log("Listening on 4002");
 
-    // get all the events
-    const res = await axios.get("http://localhost:4005/events");
+  // get all the events
+  const res = await axios.get("http://event-bus-srv:4005/events");
 
-    for (let event of res.data) {
-        console.log("Processing Event: ", event.type);
-        handleEvent(event.type, event.data);
-    }
+  for (let event of res.data) {
+    console.log("Processing Event: ", event.type);
+    handleEvent(event.type, event.data);
+  }
 });
