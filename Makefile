@@ -22,3 +22,12 @@ k8s-apply:
 	kubectl apply -f ./infra/k8s
 k8s-delete:
 	kubectl delete -f ./infra/k8s
+k8s-rollout-restart:
+	kubectl rollout restart deployment/client-react
+	kubectl rollout restart deployment/comments
+	kubectl rollout restart deployment/event-bus
+	kubectl rollout restart deployment/moderation
+	kubectl rollout restart deployment/posts
+	kubectl rollout restart deployment/query
+minikube-clean:
+	minikube image rm docker.io/adhiana46/ms-node-client-react docker.io/adhiana46/ms-node-comment-service docker.io/adhiana46/ms-node-event-bus docker.io/adhiana46/ms-node-moderation-service docker.io/adhiana46/ms-node-post-service docker.io/adhiana46/ms-node-query-service

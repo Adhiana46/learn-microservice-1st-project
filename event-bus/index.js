@@ -8,31 +8,33 @@ app.use(bodyParser.json());
 const events = [];
 
 function sendEvent(url, event) {
-    console.log("sendEvent", url, event);
+  console.log("sendEvent", url, event);
 
-    axios.post(url, event).catch(err => {
-        console.log("sendEvent.Error", url, err.code);
-    });
+  axios.post(url, event).catch((err) => {
+    console.log("sendEvent.Error", url, err.code);
+  });
 }
 
 app.post("/events", (req, res) => {
-    const event = req.body
+  const event = req.body;
 
-    event.id = events.length;
-    events.push(event);
+  event.id = events.length;
+  events.push(event);
 
-    sendEvent("http://localhost:4000/events", event)
-    sendEvent("http://localhost:4001/events", event);
-    sendEvent("http://localhost:4002/events", event);
-    sendEvent("http://localhost:4003/events", event);
+  console.log("Received Event: ", event.type);
 
-    res.send({ status: "OK" });
+  sendEvent("http://posts-clusterip-srv:4000/events", event);
+  // sendEvent("http://localhost:4001/events", event);
+  // sendEvent("http://localhost:4002/events", event);
+  // sendEvent("http://localhost:4003/events", event);
+
+  res.send({ status: "OK" });
 });
 
 app.get("/events", (req, res) => {
-    res.send(events);
-})
+  res.send(events);
+});
 
 app.listen(4005, () => {
-    console.log("Listening on 4005");
+  console.log("Listening on 4005");
 });
