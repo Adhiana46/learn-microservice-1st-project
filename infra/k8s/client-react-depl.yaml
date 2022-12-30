@@ -16,12 +16,6 @@ spec:
       - name: client-react
         image: adhiana46/ms-node-client-react
         imagePullPolicy: IfNotPresent
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
-        # ports:
-        # - containerPort: <Port>
 ---
 apiVersion: v1
 kind: Service
