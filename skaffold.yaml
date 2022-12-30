@@ -1,0 +1,39 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: learn-microservice--st-project
+build:
+  artifacts:
+  - image: adhiana46/ms-node-client-react
+    context: client-react
+    docker:
+      dockerfile: Dockerfile
+  - image: adhiana46/ms-node-comment-service
+    context: comments
+    docker:
+      dockerfile: Dockerfile
+  - image: adhiana46/ms-node-event-bus
+    context: event-bus
+    docker:
+      dockerfile: Dockerfile
+  - image: adhiana46/ms-node-moderation-service
+    context: moderation
+    docker:
+      dockerfile: Dockerfile
+  - image: adhiana46/ms-node-post-service
+    context: posts
+    docker:
+      dockerfile: Dockerfile
+  - image: adhiana46/ms-node-query-service
+    context: query
+    docker:
+      dockerfile: Dockerfile
+manifests:
+  rawYaml:
+  - infra/k8s/client-react-depl.yaml
+  - infra/k8s/comments-depl.yaml
+  - infra/k8s/event-bus-depl.yaml
+  - infra/k8s/ingress-srv.yaml
+  - infra/k8s/moderation-depl.yaml
+  - infra/k8s/posts-depl.yaml
+  - infra/k8s/query-depl.yaml
