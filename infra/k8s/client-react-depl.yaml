@@ -22,3 +22,17 @@ spec:
             cpu: "500m"
         # ports:
         # - containerPort: <Port>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-react-srv
+spec:
+  type: NodePort
+  selector:
+    app: client-react
+  ports:
+  - name: client-react
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
